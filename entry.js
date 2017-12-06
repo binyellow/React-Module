@@ -1,11 +1,36 @@
 import {render} from 'react-dom'
 import React from 'react'
-import {Button,Icon} from 'antd';
+import {Button,Icon,LocaleProvider, DatePicker, message} from 'antd';
 import 'antd/dist/antd.css';
 
-render(
-    <div>
-        <Button className="pull-left"><Icon type="user" />   <a href="http://axuebin.com">薛彬</a></Button>
-    </div>,
-    document.getElementById('root')
-)
+// render(
+//     <div>
+//         <Button className="pull-left"><Icon type="user" />   <a href="http://axuebin.com">薛彬</a></Button>
+//     </div>,
+//     document.getElementById('root')
+// )
+
+class App extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        date: '',
+      };
+    }
+    handleChange(date) {
+      message.info('您选择的日期是: ' + date.toString());
+      this.setState({ date });
+    }
+    render() {
+      return (
+        <LocaleProvider>
+          <div style={{ width: 400, margin: '100px auto' }}>
+            <DatePicker onChange={value => this.handleChange(value)} />
+            <div style={{ marginTop: 20 }}>当前日期：{this.state.date.toString()}</div>
+          </div>
+        </LocaleProvider>
+      );
+    }
+  }
+  
+ render(<App />, document.getElementById('root'));

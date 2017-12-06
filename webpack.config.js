@@ -1,10 +1,12 @@
 var webpack = require('webpack');
 var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+var htmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: './entry.js',
   output: {
     path:__dirname+"/",
-    filename: 'bundle.js'
+    filename: '[name]-[hash].js'
     // publicPath:"src/"
   },
   module:{
@@ -18,7 +20,8 @@ module.exports = {
         // { test:/\.(png|woff|woff2|svg|ttf|eot)($|\?)/i, loader:'url-loader?limit=5000'} // 限制大小小于5k
     ]
   },
-  // plugins: [
+  plugins: [
+  //   //代码压缩插件，开这个插件开启webpack服务会报错，暂时不知道为什么
   //   new webpack.optimize.UglifyJsPlugin({
   //       compress: {
   //           warnings: true
@@ -28,19 +31,19 @@ module.exports = {
   // ]
   // plugins:[
   //   //// html 模板插件
-  //   new htmlWebpackPlugin({
-  //       template:'./app/index.tem.html',
-  //       inject:'body'
-  //   }),
+    new htmlWebpackPlugin({
+        template:'./index.tem.html',//这个是模板
+        inject:'body'//插入位置
+    }),
   //   // 热加载插件
   //   new webpack.HotModuleReplacementPlugin(),
   //   // 打开浏览器
-  //   new OpenBrowserPlugin({
-  //     url: 'http://localhost:8080'
-  //   }),
+    new OpenBrowserPlugin({
+      url: 'http://localhost:8080'
+    }),
   //   // 可在业务 js 代码中使用 __DEV__ 判断是否是dev模式（dev模式下可以提示错误、测试报告等, production模式不提示）
   //   new webpack.DefinePlugin({
   //         __DEV__: JSON.stringify(JSON.parse((process.env.NODE_ENV == 'dev') || 'false'))
   //   })
-  // ]
+  ]
 }
