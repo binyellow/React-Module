@@ -5,7 +5,7 @@ var htmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: './entry.js',
   output: {
-    path:__dirname+"/",
+    path:__dirname+"/build/",
     filename: '[name]-[hash].js'
     // publicPath:"src/"
   },
@@ -32,6 +32,7 @@ module.exports = {
   // plugins:[
   //   //// html 模板插件
     new htmlWebpackPlugin({
+        title:"React_Module",
         template:'./index.tem.html',//这个是模板
         inject:'body'//插入位置
     }),
