@@ -1,5 +1,4 @@
 var webpack = require('webpack');
-var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 var htmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
@@ -11,7 +10,7 @@ module.exports = {
   },
   module:{
     loaders:[
-        { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', query: { presets: ['react', 'es2015'] }},
+        { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', query: { presets: ['react', 'es2015', 'stage-2'] }},
         { test: /\.css$/,loader: 'style-loader!css-loader'}
         // {test: /\.js$/,loader: 'babel?presets=react&&es2015'},
         // { test: /\.less$/, exclude: /node_modules/, loader: 'style-loader!css-loader!less-loader' },
