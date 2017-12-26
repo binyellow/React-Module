@@ -26,6 +26,11 @@ const EditableCell = ({ editable, value, onChange }) => (
 class EditableTable extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { 
+      data,
+      selectedRowKeys:[]
+     };
+    this.cacheData = data.map(item => ({ ...item })); 
     this.columns = [{
       title: 'name',
       dataIndex: 'name',
@@ -62,8 +67,8 @@ class EditableTable extends React.Component {
         );
       },
     }];
-    this.state = { data };
-    this.cacheData = data.map(item => ({ ...item })); 
+
+    this.onSelectChange = this.onSelectChange.bind(this)
   }
   renderColumns(text, record, column) {
     return (
@@ -108,8 +113,19 @@ class EditableTable extends React.Component {
       this.setState({ data: newData });
     }
   }
+  onSelectChange = (selectedRowKeys) => {
+    console.log(selectedRowKeys);
+    this.setState({ selectedRowKeys });
+  }
   render() {
-    return <Table bordered dataSource={this.state.data} columns={this.columns} />;
+    const {
+      selectedRowKeys
+    } = this.state;
+    const rowSelection = {
+      selectedRowKeys,
+      onChange: this.onSelectChange,
+    };
+    return <Table rowSelection={rowSelection} bordered dataSource={this.state.data} columns={this.columns} />;
   }
 }
 
